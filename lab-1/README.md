@@ -36,4 +36,10 @@ following:
 
 - What is the total funding allocated?
 
+## Getting help
+
+- Refer to the code examples: http://db.science.uoit.ca/library/teaching/compilers/01.regular-expression/re-lib
+- Refer to Java API: https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
+- Ask the TA and your friends
+
 
