@@ -27,7 +27,7 @@ context, and the group to capture the information content.
 
 ## Parser
 
-Write a Java program to output the information, and use the data to compute the
+Write a Java program to output the information given in `nserc-2017.html`, and use the data to compute the
 following:
 
 - Which university has the most number of successful applications?
