@@ -3,7 +3,7 @@
 NSERC releases successful research grant applications online.
 You can see the result [here](http://www.nserc-crsng.gc.ca/NSERC-CRSNG/FundingDecisions-DecisionsFinancement/ResearchGrants-SubventionsDeRecherche/ResultsGSC-ResultatsCSS_eng.asp?Year=2017)
 
-The result for Computer Science is given in the file `nserc-cs-2017.html`.
+The result for Computer Science is given in the file `nserc-2017.html`.
 
 ## Modeling
 
