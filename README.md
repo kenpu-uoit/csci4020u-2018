@@ -1,1 +1,3 @@
-# csci4020u-2018
+# CSCI 4020U: Compilers
+
+## 2018 Winter
