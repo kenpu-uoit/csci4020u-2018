@@ -34,11 +34,21 @@ Create a grammar file `Calc.g4` with the start symbol: `expr`.
 The grammar should have productions of `expr`.  The bodies
 will consist of `expr`, `'+'`, `'*'`, `Number`.
 
+## Generate Lexer and Parser Java classes
+
+Use ANTLR to convert `Calc.g4` to `CalcLexer.java` and `CalcParser.java` using
+
+```
+java -jar antlr-4.7-complete.jar -no-visitor -no-listener Calc.g4
+```
+
 ## Write a parsing program
 
 Write an executable Java program that performs the following:
 
 ```java
+import org.antlr.v4.runtime.*;
+
 class Program {
   public static void main(String[] args) {
     String inputFilename = args[0];
@@ -55,7 +65,21 @@ class Program {
 For step 5., make sure you include the parsing call in a `try`-`catch` block so
 your program can react to input files that contain invalid source code.
 
+## Compile your code
+
+Make sure you can generate the executable Java class:
+
+```
+javac -cp antlr-4.7-complete.jar:$PWD Program.java
+```
+
 ## Experiment
+
+You can run your program with
+
+```
+java -cp antlr-4.7-complete.jar:$PWD Program <input file>
+```
 
 - Try out input files with valid inputs.
 - Try out input files with invalid inputs.
