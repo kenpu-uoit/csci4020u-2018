@@ -3,7 +3,7 @@
 ANTLR=$(HOME)/bin/antlr-4.7-complete.jar
 
 part1:
-	cd part1; make
+	cd part1; ANTLR=$(ANTLR) make
 
 part2:
-	cd part2; make
+	cd part2; ANTLR=$(ANTLR) make
