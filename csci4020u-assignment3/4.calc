@@ -1,0 +1,5 @@
+pi = 3.1415
+degrees = 45
+radians = degrees * pi / 180
+display pow(sin(radians),2) + pow(cos(radians), 2)
+

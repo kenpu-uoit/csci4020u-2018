@@ -1,0 +1,5 @@
+pi = 3.1415
+area = 3.1415 * (1+2) * (1+2)
+display pi
+display area
+
