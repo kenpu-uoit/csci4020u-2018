@@ -6,10 +6,14 @@ all:
 	java -jar $(ANTLR) -no-visitor -no-listener *.g4
 	javac $(CP) *.java
 
-run:
+run1:
 	java $(CP) Main samples/1.calc
+run2:
 	java $(CP) Main samples/2.calc
+run3:
 	java $(CP) Main samples/3.calc
+
+run: run1 run2 run3
 
 clean:
 	rm -f $(GRAMMAR)*.java *.tokens *.class

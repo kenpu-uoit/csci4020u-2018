@@ -1,4 +1,5 @@
 import org.antlr.v4.runtime.*;
+import java.util.*;
 
 class Main {
     public static void main(String[] args) throws Exception {
@@ -10,7 +11,11 @@ class Main {
       PLLexer lexer = new PLLexer(input);
       CommonTokenStream tokens = new CommonTokenStream(lexer);
       PLParser parser = new PLParser(tokens);
-      parser.program();
+      List<Code> cs = parser.program().cs;
+      for(Code c: cs) {
+          Code result = Code.eval(c);
+          System.out.println("=>" + result.number);
+      }
     }
 }
 
