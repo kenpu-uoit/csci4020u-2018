@@ -1,15 +1,16 @@
 ANTLR = $(HOME)/bin/antlr-4.7-complete.jar
 CP = -cp $(ANTLR):.
+GRAMMAR = PL
 
 all:
 	java -jar $(ANTLR) -no-visitor -no-listener *.g4
 	javac $(CP) *.java
 
 run:
-	java $(CP) CalcParser samples/1.calc
-	java $(CP) CalcParser samples/2.calc
-	java $(CP) CalcParser samples/3.calc
+	java $(CP) Main samples/1.calc
+	java $(CP) Main samples/2.calc
+	java $(CP) Main samples/3.calc
 
 clean:
-	rm -f Calc*.java *.tokens *.class
+	rm -f $(GRAMMAR)*.java *.tokens *.class
 
