@@ -12,10 +12,13 @@ class Main {
       CommonTokenStream tokens = new CommonTokenStream(lexer);
       PLParser parser = new PLParser(tokens);
       List<Code> cs = parser.program().cs;
+      System.out.println("Code count:" + cs.size());
+      /*
       for(Code c: cs) {
           Code result = Code.eval(c);
           System.out.println("=>" + result.number);
       }
+      */
     }
 }
 

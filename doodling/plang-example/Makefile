@@ -12,8 +12,10 @@ run2:
 	java $(CP) Main samples/2.calc
 run3:
 	java $(CP) Main samples/3.calc
+run4:
+	java $(CP) Main samples/4.calc
 
-run: run1 run2 run3
+run: run1 run2 run3 run4
 
 clean:
 	rm -f $(GRAMMAR)*.java *.tokens *.class
