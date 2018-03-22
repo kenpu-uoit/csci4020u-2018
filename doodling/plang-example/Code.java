@@ -2,38 +2,67 @@ import java.util.*;
 
 class Code {
     public enum Type {
-        NUMBER,
-        CODE
+        BIN_OP,
+        DATA,
+        VARIABLE,
+        ASSIGN,
+        PRINT
+    }
+    static void p(String s) {
+        System.out.print(s);
+    }
+
+    public void prettyPrint(String indent) {
+        p(indent);
+        p("[" + this.t + "] ");
+        switch(this.t) {
+            case BIN_OP:
+                p(this.op + "\n");
+                this.children.get(0).prettyPrint(indent + "  ");
+                this.children.get(1).prettyPrint(indent + "  ");
+                break;
+            case DATA:
+                p("" + this.number + "\n");
+                break;
+            case VARIABLE:
+                p(this.name + "\n");
+                break;
+            case ASSIGN:
+                p(this.name + " = \n");
+                this.children.get(0).prettyPrint(indent + "  ");
+                break;
+            case PRINT:
+                p("PRINT\n");
+                this.children.get(0).prettyPrint(indent + "  ");
+        }
     }
 
     Type t;
+
+    // For DATA
     double number;
+
+    // For BIN_OP
     String op;
     List<Code> children;
 
-    public Code() {
+    // For VARIABLE
+    String name;
+
+    // For ASSIGN
+    // reuse name and children
+
+    // PRINT
+    // reuse children
+
+    public Code(Type t) {
+        this.t = t;
         this.children = new ArrayList<Code>();
     }
 
-    @Override
-    public String toString() {
-        String s = "";
-        s += String.format("t:%s\n", t);
-        s += String.format("number:%s\n", number);
-        s += String.format("op:%s\n", op);
-        s += "children:\n";
-        for(Code c: children) {
-            s += c.toString();
-            s += "----------\n";
-        }
-        return s;
-    }
-
     public static Code binOp(String op, Code x, Code y) {
-        Code c = new Code();
-        c.t = Type.CODE;
+        Code c = new Code(Type.BIN_OP);
         c.op = op;
-        c.children = new ArrayList<Code>();
         c.children.add(x);
         c.children.add(y);
         return c;
@@ -44,9 +73,27 @@ class Code {
     }
 
     public static Code data(double num) {
-        Code c = new Code();
-        c.t = Type.NUMBER;
+        Code c = new Code(Type.DATA);
         c.number = num;
+        return c;
+    }
+
+    public static Code variable(String name) {
+        Code c = new Code(Type.VARIABLE);
+        c.name = name;
+        return c;
+    }
+
+    public static Code assign(String name, Code expr) {
+        Code c = new Code(Type.ASSIGN);
+        c.name = name;
+        c.children.add(expr);
+        return c;
+    }
+
+    public static Code print(Code expr) {
+        Code c = new Code(Type.PRINT);
+        c.children.add(expr);
         return c;
     }
 
@@ -58,43 +105,4 @@ class Code {
         return l;
     }
 
-    public static Code binOpEval(char op, Code x, Code y) throws Exception {
-        double a = eval(x).number;
-        double b = eval(y).number;
-        double c = 0.0;
-        switch(op) {
-            case '+':
-                c = a + b;
-                break;
-            case '-':
-                c = a - b;
-                break;
-            case '*':
-                c = a * b;
-                break;
-            case '/':
-                if(b == 0)
-                    throw new Exception("Division by zero");
-                else
-                    c = a / b;
-            default:
-                throw new Exception("unknown operator");
-        }
-        return data(c);
-    }
-
-    public static Code eval(Code c) throws Exception {
-        switch(c.t) {
-            case NUMBER:
-                return c;
-            case CODE:
-                if(c.op.equals("*") 
-                        || c.op.equals("+")
-                        || c.op.equals("-")
-                        || c.op.equals("/"))
-                    return binOpEval(c.op.charAt(0), c.children.get(0), c.children.get(1));
-            default:
-                throw new Exception("Unknown type");
-        }
-    }
 }
