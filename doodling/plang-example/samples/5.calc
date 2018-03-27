@@ -1,0 +1,8 @@
+half = 1
+
+pi = 3.1415
+r = 20
+area = pi * r * r
+z = if half > 0 { area / 2 } else { area }
+
+-> z

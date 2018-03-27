@@ -6,7 +6,10 @@ class Code {
         DATA,
         VARIABLE,
         ASSIGN,
-        PRINT
+        PRINT,
+        COND,
+        IF,
+        BLOCK
     }
     static void p(String s) {
         System.out.print(s);
@@ -94,6 +97,38 @@ class Code {
     public static Code print(Code expr) {
         Code c = new Code(Type.PRINT);
         c.children.add(expr);
+        return c;
+    }
+
+    public static Code compare(String op, Code x, Code y) {
+        Code c = new Code(Type.COND);
+        c.op = op;
+        c.children.add(x);
+        c.children.add(y);
+        return c;
+    }
+
+    public static Code and(Code x, Code y) {
+        return compare("and", x, y);
+    }
+
+    public static Code or(Code x, Code y) {
+        return compare("or", x, y);
+    }
+
+    public static Code not(Code x) {
+        return compare("not", x, null);
+    }
+
+    public static Code ifElse(Code cond, Code x) {
+        Code c = new Code(Type.IF);
+        c.children.add(cond);
+        c.children.add(x);
+        return c;
+    }
+
+    public static Code block() {
+        Code c = new Code(Type.BLOCK);
         return c;
     }
 

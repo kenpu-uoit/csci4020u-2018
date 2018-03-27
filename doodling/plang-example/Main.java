@@ -11,7 +11,9 @@ class Main {
       PLLexer lexer = new PLLexer(input);
       CommonTokenStream tokens = new CommonTokenStream(lexer);
       PLParser parser = new PLParser(tokens);
+
       List<Code> cs = parser.program().cs;
+
       SymbolTable ctx = new SymbolTable();
       if(cs != null) {
           for(Code c: cs) {

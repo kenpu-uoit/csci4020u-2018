@@ -23,12 +23,27 @@ class Eval {
                 expr = Do(c.children.get(0), ctx);
                 expr.prettyPrint("-> ");
                 return null;
+            case COND:
+                throw new Exception("Don't know how to eval cond yet");
+            case IF:
+                throw new Exception("Just wait until Tuesday");
             default:
                 throw new Exception("Unknown code type");
         }
     }
 
-    static Code Do_BIN_OP(String op, Code x, Code y, SymbolTable ctx) {
-        return Code.data(x.number + y.number);
+    static Code Do_BIN_OP(String op, Code x, Code y, SymbolTable ctx) throws Exception {
+        if(op.equals("+"))
+            return Code.data(x.number + y.number);
+        if(op.equals("*"))
+            return Code.data(x.number * y.number);
+        if(op.equals("-"))
+            return Code.data(x.number - y.number);
+        if(op.equals("/"))
+            if(y.number == 0)
+                throw new Exception("Oops, you did something BAD...");
+            else
+                return Code.data(x.number - y.number);
+        return null;
     }
 }
