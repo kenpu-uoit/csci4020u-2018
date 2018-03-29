@@ -3,6 +3,11 @@ half = 1
 pi = 3.1415
 r = 20
 area = pi * r * r
-z = if half > 0 { area / 2 } else { area }
-
--> z
+-> (half > 0)
+-> (half < 0)
+-> (r > pi)
+-> (r < pi)
+-> (r < pi) or (r > half)
+-> (r < pi) and (r > half)
+-> (not (r < pi) and (r > half))
+-> (not (not (r < pi) and (r > half)))

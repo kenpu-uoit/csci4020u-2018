@@ -1,0 +1,18 @@
+pi = 3.1415
+r = 20
+area = pi * r * r
+-> area
+
+half = 1
+z = if (half > 0) { area / 2 } else { area }
+-> z
+
+half = 0
+z = if (half > 0) { area / 2 } else { area }
+-> z
+
+half = 1
+if half > 0 {
+  area = area / 2
+}
+-> area

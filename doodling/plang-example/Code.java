@@ -75,6 +75,13 @@ class Code {
         return data(Double.parseDouble(text));
     }
 
+    public static Code binary(boolean cond) {
+        if(cond)
+            return data(1.0);
+        else
+            return data(-1.0);
+    }
+
     public static Code data(double num) {
         Code c = new Code(Type.DATA);
         c.number = num;

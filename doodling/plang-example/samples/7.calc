@@ -1,0 +1,14 @@
+pi = 3.1415
+
+function calc_area(radius, half) {
+  area = pi * radius * radius
+  if half > 0 {
+    area = area / 2
+  }
+  area
+}
+
+radius = 10
+-> calc_area(radius, 1)
+-> calc_area(radius, 0)
+

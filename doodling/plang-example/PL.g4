@@ -19,7 +19,7 @@ expr returns [Code c]
 
 ifElse returns [Code c]
     : 'if' cond '{' x=block '}' { $c = Code.ifElse($cond.c, $x.c); }
-      ('else' '{' y=block '}' { $c.children.add($y.c); }
+      ('else' '{' y=block '}'   { $c.children.add($y.c); }
       )?
     ;
 
@@ -34,7 +34,8 @@ assignStmt returns [Code c]
     ;
 
 printStmt returns [Code c]
-    : '->' expr { $c = Code.print($expr.c); }
+    : '->' (expr { $c = Code.print($expr.c); }
+           |cond { $c = Code.print($cond.c); })
     ;
 
 cond returns [Code c]
