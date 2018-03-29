@@ -9,7 +9,9 @@ class Code {
         PRINT,
         COND,
         IF,
-        BLOCK
+        BLOCK,
+        DECL,
+        FUNCALL
     }
     static void p(String s) {
         System.out.print(s);
@@ -52,11 +54,9 @@ class Code {
     // For VARIABLE
     String name;
 
-    // For ASSIGN
-    // reuse name and children
+    // DECL
+    List<String> paramNames;
 
-    // PRINT
-    // reuse children
 
     public Code(Type t) {
         this.t = t;
@@ -136,6 +136,19 @@ class Code {
 
     public static Code block() {
         Code c = new Code(Type.BLOCK);
+        return c;
+    }
+
+    public static Code decl(String fname, List<String> paramNames, Code body) {
+        Code c = new Code(Type.DECL);
+        c.name = fname;
+        c.paramNames = paramNames;
+        c.children = body.children;
+        return c;
+    }
+
+    public static Code funCall(String name, List<Code> args) {
+        Code c = new Code(Type.FUNCALL);
         return c;
     }
 

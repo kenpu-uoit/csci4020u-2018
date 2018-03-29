@@ -2,6 +2,9 @@ class Eval {
     public static Code Do(Code c, SymbolTable ctx) throws Exception {
         String varname;
         Code expr;
+        if(c == null) {
+            throw new Exception("Empty code fragment");
+        }
         switch(c.t) {
             case BIN_OP:
                 return Do_BIN_OP(
@@ -15,9 +18,7 @@ class Eval {
                 varname = c.name;
                 return ctx.resolve(varname);
             case ASSIGN:
-                varname = c.name;
-                expr = Do(c.children.get(0), ctx);
-                ctx.put(varname, expr);
+                ctx.put(c.name, Do(c.children.get(0), ctx));
                 return null;
             case PRINT:
                 expr = Do(c.children.get(0), ctx);
@@ -29,8 +30,11 @@ class Eval {
                 return Do_IF(c, ctx);
             case BLOCK:
                 return Do_BLOCK(c, ctx);
+            case DECL:
+                ctx.put(c.name, c);
+                return null;
             default:
-                throw new Exception("Unknown code type");
+                throw new Exception("Unknown code type:" + c.t);
         }
     }
 

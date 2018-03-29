@@ -1,6 +1,7 @@
 pi = 3.1415
 
 function calc_area(radius, half) {
+  bang()
   area = pi * radius * radius
   if half > 0 {
     area = area / 2
@@ -13,4 +14,12 @@ function bang() {
 }
 
 radius = 10
+
+func factorial(n) {
+  if n < 2 {
+    1
+  } else {
+    n * factorial(n-1)
+  }
+}
 
