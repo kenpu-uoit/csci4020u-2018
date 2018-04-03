@@ -9,8 +9,10 @@ function calc_area(radius, half) {
 }
 
 function bang() {
-  -> 1000000000000000000000.99999999
+  -> 999
 }
 
 radius = 10
-
+bang()
+-> calc_area(100 + radius, 1)
+-> calc_area(radius, 1)

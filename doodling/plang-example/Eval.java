@@ -3,6 +3,7 @@ class Eval {
         String varname;
         Code expr;
         if(c == null) {
+            c.prettyPrint("**");
             throw new Exception("Empty code fragment");
         }
         switch(c.t) {
@@ -33,6 +34,8 @@ class Eval {
             case DECL:
                 ctx.put(c.name, c);
                 return null;
+            case FUNCALL:
+                return Do_FUNCALL(c, ctx);
             default:
                 throw new Exception("Unknown code type:" + c.t);
         }
@@ -119,5 +122,31 @@ class Eval {
         }
 
         return null;
+    }
+
+    static Code Do_FUNCALL(Code c, SymbolTable ctx) throws Exception {
+        SymbolTable myCtx = new SymbolTable(ctx);
+
+        String funName = c.name;
+        Code fun = ctx.resolve(funName);
+
+        // Make sure that the arity agrees
+        if(fun.paramNames.size() != c.children.size()) {
+            throw new Exception(funName + " arity error");
+        }
+
+        // Bind the parameters to arguments in the new ctx
+        for(int i=0; i < fun.paramNames.size(); i++) {
+            String parameter = fun.paramNames.get(i);
+            Code argument = Do(c.children.get(i), ctx);
+            myCtx.put(parameter, argument);
+        }
+
+        Code result = null;
+        for(Code body : fun.children) {
+            result = Do(body, myCtx);
+        }
+
+        return result;
     }
 }

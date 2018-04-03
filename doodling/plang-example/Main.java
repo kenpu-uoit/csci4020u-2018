@@ -17,7 +17,8 @@ class Main {
       SymbolTable ctx = new SymbolTable();
       if(cs != null) {
           for(Code c: cs) {
-              Eval.Do(c, ctx);
+              // Eval.Do(c, ctx);
+              c.prettyPrint("");
           }
       }
     }

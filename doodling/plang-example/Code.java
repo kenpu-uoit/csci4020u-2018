@@ -19,26 +19,20 @@ class Code {
 
     public void prettyPrint(String indent) {
         p(indent);
-        p("[" + this.t + "] ");
-        switch(this.t) {
-            case BIN_OP:
-                p(this.op + "\n");
-                this.children.get(0).prettyPrint(indent + "  ");
-                this.children.get(1).prettyPrint(indent + "  ");
-                break;
-            case DATA:
-                p("" + this.number + "\n");
-                break;
-            case VARIABLE:
-                p(this.name + "\n");
-                break;
-            case ASSIGN:
-                p(this.name + " = \n");
-                this.children.get(0).prettyPrint(indent + "  ");
-                break;
-            case PRINT:
-                p("PRINT\n");
-                this.children.get(0).prettyPrint(indent + "  ");
+        p("[" + this.t + "] \n");
+        p(indent);
+        p(" name=" + this.name);
+        p(" op=" + this.op);
+        p(" number=" + this.number + "\n");
+        if( this.paramNames != null ) {
+            p("  paramNames:");
+            for(String s: this.paramNames)
+                p(s + ",");
+            p("\n");
+        }
+        for(int i=0; i < children.size(); i++) {
+            Code c = children.get(i);
+            c.prettyPrint(indent + i + " ");
         }
     }
 
@@ -149,6 +143,8 @@ class Code {
 
     public static Code funCall(String name, List<Code> args) {
         Code c = new Code(Type.FUNCALL);
+        c.name = name;
+        c.children = args;
         return c;
     }
 
