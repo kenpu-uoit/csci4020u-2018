@@ -24,4 +24,12 @@ class SymbolTable extends HashMap<String, Code> {
             return c;
         }
     }
+
+    public void prettyPrint() {
+        System.out.println("+-------------------------");
+        for(String k : this.keySet()) {
+            System.out.printf("| %s: ...\n", k);
+        }
+        System.out.println("+-------------------------");
+    }
 }

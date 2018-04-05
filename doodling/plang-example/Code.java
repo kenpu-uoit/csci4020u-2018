@@ -19,6 +19,10 @@ class Code {
 
     public void prettyPrint(String indent) {
         p(indent);
+        if(this.t == Type.DATA) {
+            p(this.number + "\n");
+            return;
+        }
         p("[" + this.t + "] \n");
         p(indent);
         p(" name=" + this.name);

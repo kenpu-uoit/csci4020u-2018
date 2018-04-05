@@ -1,25 +1,20 @@
-pi = 3.1415
-
-function calc_area(radius, half) {
-  bang()
-  area = pi * radius * radius
-  if half > 0 {
-    area = area / 2
+function loop_helper(n, i) {
+  if i < n {
+    -> factorial(i)
+    loop_helper(n, i+1)
   }
-  area
 }
 
-function bang() {
-  -> 1000000000000000000000.99999999
+function loop(n) {
+  loop_helper(n, 1)
 }
 
-radius = 10
-
-func factorial(n) {
-  if n < 2 {
+function factorial(n) {
+  if n == 1 or n == 0 {
     1
   } else {
-    n * factorial(n-1)
+    factorial(n-1) * n
   }
 }
 
+loop(12)

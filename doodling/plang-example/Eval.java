@@ -42,10 +42,9 @@ class Eval {
     }
 
     static Code Do_BLOCK(Code c, SymbolTable ctx) throws Exception {
-        for(int i=0; i < c.children.size(); i++) {
-            c.children.set(i, Do(c.children.get(i), ctx));
-        }
-        return c;
+        Code result = null;
+        for(Code x : c.children) result = Do(x, ctx);
+        return result;
     }
 
     static Code Do_BIN_OP(String op, Code x, Code y, SymbolTable ctx) throws Exception {
@@ -106,22 +105,17 @@ class Eval {
 
     static Code Do_IF(Code c, SymbolTable ctx) throws Exception {
         Code cond = Do(c.children.get(0), ctx);
-        Code block = null;
+        Code result = null;
 
         if(cond.number > 0) {
-            block = Do(c.children.get(1), ctx);
+            result = Do(c.children.get(1), ctx);
         } else {
             if(c.children.size() == 3) {
-                block = Do(c.children.get(2), ctx);
+                result = Do(c.children.get(2), ctx);
             }
         }
 
-        if(block != null) {
-            int n = block.children.size();
-            return block.children.get(n-1);
-        }
-
-        return null;
+        return result;
     }
 
     static Code Do_FUNCALL(Code c, SymbolTable ctx) throws Exception {
